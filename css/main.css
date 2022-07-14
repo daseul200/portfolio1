@@ -640,6 +640,7 @@ section .slide_btn .swiper-button-prev:after{
       border-radius:3px;
       -moz-border-radius:3px;
       -webkit-border-radius:3px;
+      transition:all 3s;
   }
   
   .skill-bar-percent {
@@ -652,6 +653,13 @@ section .slide_btn .swiper-button-prev:after{
       color:#ffffff;
       color:rgba(0, 0, 0, 0.4);
   }
+  .sk1.active { width:85%; }
+  .sk2.active { width:85%; }
+  .sk3.active { width:40%; }
+  .sk4.active { width:50%; }
+  .sk5.active { width:90%; }
+  .sk6.active { width:90%; }
+  .sk7.active { width:80%; }
   
 .section9{
     background-image: url(../img/stripe2.png);
