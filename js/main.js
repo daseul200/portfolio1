@@ -18,6 +18,7 @@ $(function(){
             var result=decoleft+menuWidth;
             $('.deco').css('left',result);
         });
+        minimize_header();
     }else{
         //모바일버전
         $('header .menu').click(function(e){
@@ -28,11 +29,24 @@ $(function(){
         });
         $('header nav .mobile_close').click(function(e){
             e.preventDefault();
-            $('nav').animate({
+            $('nav').stop().animate({
+                right:'-100%'
+            });
+        });
+        // 메뉴 클릭 시 section 부드럽게 이동
+        $('nav ul li a').click(function(e){
+            e.preventDefault();
+            var $anchor=$(this);
+            $('html,body').stop().animate({
+                scrollTop:$($anchor.attr('href')).offset().top
+            },1000);
+            $('nav').stop().animate({
                 right:'-100%'
             });
         });
     }
+
+
     //header ani
     function minimize_header() { 
         var $window = $(window); 
@@ -72,7 +86,7 @@ $(function(){
         }
     }
 
-    minimize_header();
+    
 
     //intro
     const left = document.getElementById("left-side");
@@ -185,14 +199,44 @@ $(function(){
 
 
     //스킬바
-
-    jQuery(document).ready(function(){
+    $(window).scroll(function(){
+        //화면 맨위쪽 위치 : 0을 변수에 저장
+        var winTop=$(window).scrollTop();
+        //화면 아래쪽 위치를 변수에 저장
+        var winBottom=winTop+$(window).height()-200;
+        
+        //두번째 section의 시작 위치값을 변수에 저장
+        var secTop=$('#Profile').offset().top+200;
+        var secBottom=secTop+$('#Profile').height()/3;
+        
+        //top < wBottom && bottom > wTop
+        if(secTop<winBottom && secBottom>winTop){
+            $('.skillbar').each(function(){
+		          $(this).find('.skillbar-bar').addClass('active');
+	        });
+        }else{
+            $('.skillbar').each(function(){
+		          $(this).find('.skillbar-bar').removeClass('active');
+	        });
+        }
+            
+        
+    });
+    
+    function skillfn(){
         jQuery('.skillbar').each(function(){
             jQuery(this).find('.skillbar-bar').animate({
                 width:jQuery(this).attr('data-percent')
-            }, 3000);
+            }, 2000);
         });
-    });
+    }
+    function skillfn2(){
+        jQuery('.skillbar').each(function(){
+            jQuery(this).find('.skillbar-bar').animate({
+                width:0
+            }, 1000);
+        });
+    }
     
     jQuery('.Count').each(function () {
       var $this = $(this);
